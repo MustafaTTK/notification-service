@@ -3,6 +3,7 @@ package com.example.notification_service.controller;
 import com.example.notification_service.dto.NotificationSearchDto;
 import com.example.notification_service.entity.Notification;
 import com.example.notification_service.service.NotificationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class NotificationController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity<List<Notification>> listNotification(@RequestBody NotificationSearchDto recipient){
-        return ResponseEntity.ok(notificationService.listNotification(recipient.recipient()));
+    public ResponseEntity<List<Notification>> listNotification(@RequestBody @Valid NotificationSearchDto recipient, @RequestParam String type){
+        return ResponseEntity.ok(notificationService.listNotification(recipient.recipient(),type));
     }
 }
