@@ -2,6 +2,7 @@ package com.example.notification_service.controller;
 
 import com.example.notification_service.dto.NotificationSearchDto;
 import com.example.notification_service.entity.Notification;
+import com.example.notification_service.enums.NotificationType;
 import com.example.notification_service.service.NotificationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class NotificationController {
     }
 
     @PostMapping("/list")
-    public ResponseEntity<List<Notification>> listNotification(@RequestBody @Valid NotificationSearchDto recipient, @RequestParam String type){
+    public ResponseEntity<List<Notification>> listNotification(@RequestBody @Valid NotificationSearchDto recipient, @RequestParam NotificationType type){
         return ResponseEntity.ok(notificationService.listNotification(recipient.recipient(),type));
     }
 }
