@@ -24,4 +24,15 @@ public class GlobalExceptionHandler{
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDTO);
     }
 
+    @ExceptionHandler(TemplateNotFoundException.class)
+    public ResponseEntity<ErrorResponseDTO> handleTemplatesNotFound(TemplateNotFoundException ex){
+        ErrorResponseDTO errorDTO = new ErrorResponseDTO(
+                HttpStatus.NOT_FOUND.value(),
+                LocalDateTime.now(),
+                "NOT FOUND",
+                ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDTO);
+    }
+
 }
