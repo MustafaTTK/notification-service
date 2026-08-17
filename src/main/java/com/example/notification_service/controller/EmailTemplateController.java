@@ -34,4 +34,9 @@ public class EmailTemplateController {
     public ResponseEntity<List<EmailTemplateResponseDTO>> listTemplates(){
         return ResponseEntity.ok(emailTemplateService.getAllTemplates());
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<EmailTemplateResponseDTO>> listKeywordContent(@RequestParam String kewyord){
+        return ResponseEntity.ok(emailTemplateService.getAllCriteriaTemplates(kewyord));
+    }
 }
