@@ -14,11 +14,8 @@ public class EmailTemplates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
     private String name;
-    @Enumerated(EnumType.STRING)
     private String subject;
-    @Enumerated(EnumType.STRING)
     private String content;
 
 }

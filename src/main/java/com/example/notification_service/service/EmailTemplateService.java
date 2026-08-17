@@ -1,6 +1,7 @@
 package com.example.notification_service.service;
 
 import com.example.notification_service.dto.EmailTemplateCreateDto;
+import com.example.notification_service.dto.EmailTemplateResponseDTO;
 import com.example.notification_service.entity.EmailTemplates;
 import com.example.notification_service.exception.NotificationNotFoundException;
 import com.example.notification_service.exception.TemplateNotFoundException;
@@ -9,6 +10,8 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +26,11 @@ public class EmailTemplateService {
     }
 
     public EmailTemplates findTemplatesWithId(Long id){
-        return emailTemplateRepo.findById(id).orElseThrow(() -> new TemplateNotFoundException("ID'si " + id + " olan bildirim bulunamadı."));
+        return emailTemplateRepo.findById(id).orElseThrow(() -> new TemplateNotFoundException("ID'si " + id + " olan şablon bulunamadı."));
+    }
+
+    public List<EmailTemplateResponseDTO> getAllTemplates(){
+        List<EmailTemplateResponseDTO> emailTemplateResponseDTO = emailTemplateRepo.findAll().stream().map(template->new EmailTemplateResponseDTO(template.getId(),template.getName(),template.getSubject(),template.getContent())).toList();
+        return emailTemplateResponseDTO;
     }
 }
