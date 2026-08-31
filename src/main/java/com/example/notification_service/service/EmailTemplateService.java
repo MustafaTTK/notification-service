@@ -5,13 +5,14 @@ import com.example.notification_service.dto.EmailTemplateResponseDTO;
 import com.example.notification_service.entity.EmailTemplates;
 import com.example.notification_service.exception.TemplateNotFoundException;
 import com.example.notification_service.repository.EmailTemplateRepo;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import java.util.stream.Collectors;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -65,5 +66,9 @@ public class EmailTemplateService {
 
     public boolean existsByName(String name){
         return emailTemplateRepo.findAll().stream().anyMatch(template->template.getName().equalsIgnoreCase(name));
+    }
+
+    public Map<String,EmailTemplateResponseDTO> getTemplatesAsMap(){
+        return emailTemplateRepo.findAll().stream().collect(Collectors.toMap(t->t.getName(),t->new EmailTemplateResponseDTO(t.getId(),t.getName(),t.getSubject(),t.getContent())));
     }
 }
