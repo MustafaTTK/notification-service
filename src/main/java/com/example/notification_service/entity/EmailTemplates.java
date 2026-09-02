@@ -17,5 +17,6 @@ public class EmailTemplates {
     private String name;
     private String subject;
     private String content;
+    private boolean active;
 
 }

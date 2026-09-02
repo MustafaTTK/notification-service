@@ -3,10 +3,8 @@ package com.example.notification_service.controller;
 import com.example.notification_service.dto.EmailTemplateCreateDto;
 import com.example.notification_service.dto.EmailTemplateResponseDTO;
 import com.example.notification_service.entity.EmailTemplates;
-import com.example.notification_service.repository.EmailTemplateRepo;
 import com.example.notification_service.service.EmailTemplateService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +36,10 @@ public class EmailTemplateController {
     @GetMapping("/search")
     public ResponseEntity<List<EmailTemplateResponseDTO>> listKeywordContent(@RequestParam String kewyord){
         return ResponseEntity.ok(emailTemplateService.getAllCriteriaTemplates(kewyord));
+    }
+
+    @GetMapping("/searchActive")
+    public ResponseEntity<List<EmailTemplateResponseDTO>> searchTemplates(@RequestParam String name){
+        return ResponseEntity.ok(emailTemplateService.searchNameActive(name));
     }
 }

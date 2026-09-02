@@ -71,4 +71,8 @@ public class EmailTemplateService {
     public Map<String,EmailTemplateResponseDTO> getTemplatesAsMap(){
         return emailTemplateRepo.findAll().stream().collect(Collectors.toMap(t->t.getName(),t->new EmailTemplateResponseDTO(t.getId(),t.getName(),t.getSubject(),t.getContent())));
     }
+
+    public List<EmailTemplateResponseDTO> searchNameActive(String name){
+        return emailTemplateRepo.searchActiveByName(name).stream().map(template->new EmailTemplateResponseDTO(template.getId(), template.getName(), template.getSubject(), template.getContent())).toList();
+    }
 }
